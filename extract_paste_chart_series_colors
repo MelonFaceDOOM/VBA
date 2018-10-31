@@ -1,0 +1,34 @@
+Sub extract_colors()
+ Dim oChart As Chart
+ Dim oSeries As Series
+
+ Set oChart = ActiveChart
+ For i = 1 To 12
+    Set oSeries = oChart.SeriesCollection(i)
+    oSeries_weight = oSeries.Format.Line.Weight
+    oSeries.Format.Line.Visible = msoFalse
+    oSeries.Format.Line.Visible = msoTrue
+    oSeries_color = oSeries.Format.Line.ForeColor.RGB
+    Worksheets("color").Cells(i, 1).Value = oSeries_color
+    Worksheets("color").Cells(i, 2).Value = oSeries_weight
+ Next i
+
+End Sub
+'oChart.SeriesCollection(12).Format.Line.ForeColor.RGB = oSeries_color
+
+Sub paste_colors()
+ Dim oChart As Chart
+ Dim oSeries As Series
+
+ Set oChart = ActiveChart
+ For i = 1 To 12
+    oSeries_color = Worksheets("color").Cells(i, 1).Value
+    oSeries_weight = Worksheets("color").Cells(i, 2).Value
+ 
+    Set oSeries = oChart.SeriesCollection(i)
+    oSeries.Format.Line.Visible = msoFalse
+    oSeries.Format.Line.Visible = msoTrue
+    oSeries.Format.Line.Weight = oSeries_weight
+    oSeries.Format.Line.ForeColor.RGB = oSeries_color
+ Next i
+End Sub
